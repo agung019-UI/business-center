@@ -1,0 +1,1 @@
+const t={async getSettings(){const e=localStorage.getItem("bcs_settings");return e?JSON.parse(e):{store_name:"Business Center",store_address:"Jl. Sekolah No. 1",store_phone:"08123456789",tax_rate:0,receipt_footer:"Terima kasih atas kunjungan Anda"}},async updateSettings(e){return localStorage.setItem("bcs_settings",JSON.stringify(e)),e}};export{t as s};

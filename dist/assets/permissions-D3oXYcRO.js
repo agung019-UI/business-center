@@ -1,0 +1,1 @@
+function r(t){const n=t.stock??t.stock_qty??0,e=t.min_stock??t.minStock??0;return n<=0?{label:"STOK HABIS",cls:"bg-red-50 text-red-600 ring-1 ring-red-200",variant:"danger"}:n<=e?{label:"STOK MENIPIS",cls:"bg-amber-50 text-amber-700 ring-1 ring-amber-200",variant:"warning"}:{label:"STOK AMAN",cls:"bg-teal-50 text-teal-700 ring-1 ring-teal-200",variant:"success"}}export{r as s};

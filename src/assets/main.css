@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #F5F7FA;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c7d0dc;
+    border-radius: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .no-spin::-webkit-outer-spin-button,
+  .no-spin::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .no-spin {
+    -moz-appearance: textfield;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  .slide-enter-active,
+  .slide-leave-active {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .slide-enter-from,
+  .slide-leave-to {
+    transform: translateX(-100%);
+  }
+
+  /* Floating sidebar re-open button */
+  .fade-slide-enter-active,
+  .fade-slide-leave-active {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .fade-slide-enter-from,
+  .fade-slide-leave-to {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+
+  .toast-enter-active,
+  .toast-leave-active {
+    transition: all 0.25s ease;
+  }
+
+  .toast-enter-from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  .toast-leave-to {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #receipt-print,
+  #receipt-print * {
+    visibility: visible;
+    color: #000 !important; /* Memastikan tinta hitam pekat pada printer thermal */
+  }
+
+  #receipt-print {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80mm; /* Lebar standar kertas kasir */
+    margin: 0;
+    padding: 10px;
+    font-size: 11pt !important; /* Ukuran dasar diperbesar untuk hasil cetak */
+  }
+
+  #receipt-print .text-base {
+    font-size: 13pt !important; /* Ukuran nama toko diperbesar */
+  }
+}
+
