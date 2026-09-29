@@ -50,7 +50,7 @@ const navGroups = computed(() => [
     label: 'Transaksi',
     show: true,
     items: [
-      { name: 'Kasir',     to: { name: 'POS' },        icon: ShoppingCart, roles: ['ADMIN', 'KASIR'] },
+      { name: 'Kasir',     to: { name: 'POS' },        icon: ShoppingCart, roles: ['KASIR'] },
       { name: 'Penjualan', to: { name: 'Sales' },       icon: Receipt,      roles: ['ADMIN', 'KASIR'] },
       { name: 'Piutang',   to: { name: 'Receivables' }, icon: CreditCard,   roles: ['ADMIN', 'KASIR'] },
     ],
