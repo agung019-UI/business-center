@@ -127,7 +127,7 @@ onMounted(fetchUsers)
         <p class="text-sm text-gray-400">{{ users.length }} pengguna terdaftar</p>
       </div>
       <button class="flex items-center justify-center gap-2 px-4 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-semibold shadow-sm" @click="openAdd">
-        <Plus class="w-4 h-4" />Tambah Pengguna
+        <Plus class="w-4 h-4" />Tambah Kasir
       </button>
     </div>
 
@@ -214,7 +214,7 @@ onMounted(fetchUsers)
     </div>
 
     <!-- Add/Edit Modal -->
-    <BaseModal :show="showModal" :title="'Tambah Pengguna'" size="sm" @close="showModal = false">
+    <BaseModal :show="showModal" :title="'Tambah Kasir'" size="sm" @close="showModal = false">
       <form class="p-5 space-y-3" @submit.prevent="save">
         <div>
           <label class="text-xs font-semibold text-gray-600 block mb-1">Nama Lengkap *</label>
