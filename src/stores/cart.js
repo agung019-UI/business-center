@@ -52,6 +52,8 @@ export const useCartStore = defineStore('cart', () => {
         qty: 1,
         max_stock: product.stock,
         unit: product.unit,
+        list_tanggal_exp: product.list_tanggal_exp || [],
+        expiration_date: (product.list_tanggal_exp && product.list_tanggal_exp.length > 0) ? product.list_tanggal_exp[0].tanggal_exp : '',
       })
     }
     return true

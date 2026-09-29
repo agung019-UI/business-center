@@ -20,6 +20,7 @@ export const productService = {
         unit: item.satuan,
         barcode: item.id_barang,
         code: item.id_barang,
+        list_tanggal_exp: item.list_tanggal_exp || [],
         min_stock: 5, // fallback since backend doesn't provide
         active: true
       }))

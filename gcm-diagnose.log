@@ -1,0 +1,212 @@
+﻿Diagnose log at 2026-09-28T07:02:37Z
+
+AppPath: C:\Program Files\Git\mingw64\bin\git-credential-manager.exe
+InstallDir: C:\Program Files\Git\mingw64\bin\
+Version: 2.6.0+3c28096588f549cb46f36b552390514356830abe
+
+------------
+Diagnostic: Environment
+Skipped: False
+Success: True
+Exception: None
+Log:
+OSType: Windows
+OSVersion: 10.0 (build 26200)
+Reading environment variables... OK
+ Variables:
+HOMEPATH=\Users\user
+DriverData=C:\Windows\System32\Drivers\DriverData
+COMPUTERNAME=LAPTOP-FCPGN0ES
+GIT_TRACE2_PARENT_SID=8bd2f208-5f46-4e65-96be-0f6ac618b0ee
+CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files
+PROCESSOR_LEVEL=6
+ANTIGRAVITY_VSCODE_HOST=1
+ChocolateyLastPathUpdate=133783958246884902
+windir=C:\WINDOWS
+SESSIONNAME=Console
+PUBLIC=C:\Users\Public
+EFC_19048_4126798990=1
+LC_CTYPE=C.UTF-8
+ZES_ENABLE_SYSMAN=1
+PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW;.CPL
+USERNAME=user
+GIT_EXEC_PATH=C:/Program Files/Git/mingw64/libexec/git-core
+TEMP=C:\Users\user\AppData\Local\Temp
+LOCALAPPDATA=C:\Users\user\AppData\Local
+MSYSTEM=MINGW64
+OneDrive=C:\Users\user\OneDrive
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 126 Stepping 5, GenuineIntel
+ProgramData=C:\ProgramData
+VSCODE_ESM_ENTRYPOINT=vs/workbench/api/node/extensionHostProcess
+USERDOMAIN=LAPTOP-FCPGN0ES
+ANTIGRAVITY_CONVERSATION_ID=544554de-2b51-448d-803a-d1573980b9e3
+PROCESSOR_REVISION=7e05
+EFC_19048_1592913036=1
+AGY_ENABLE_HUB=1
+COPILOT_OTEL_FILE_EXPORTER_PATH=\\.\nul
+NODE_USE_SYSTEM_CA=1
+ProgramW6432=C:\Program Files
+VSCODE_IPC_HOOK=\\.\pipe\ee27be9a-1.139.1-main-sock
+APPDATA=C:\Users\user\AppData\Roaming
+ANTIGRAVITY_CSRF_TOKEN=a9c29070-3b24-4adb-b533-ed89ab849b33
+ProgramFiles(x86)=C:\Program Files (x86)
+ANTIGRAVITY_APP_DATA_DIR=C:/Users/user/.gemini/antigravity
+NUMBER_OF_PROCESSORS=8
+FPS_BROWSER_USER_PROFILE_STRING=Default
+CommonProgramFiles=C:\Program Files (x86)\Common Files
+EFC_19048_2946480783=1
+TMP=C:\Users\user\AppData\Local\Temp
+VSCODE_HANDLES_UNCAUGHT_ERRORS=true
+ANTIGRAVITY_LS_ADDRESS=localhost:54390
+ProgramFiles=C:\Program Files (x86)
+PLINK_PROTOCOL=ssh
+COLORTERM=truecolor
+CHROME_CRASHPAD_PIPE_NAME=\\.\pipe\crashpad_2232_CTWRNKHMBPXHDHUG
+PATH=C:/Program Files/Git/mingw64/libexec/git-core;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\user\bin;C:/Users/user/.gemini/antigravity/bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Python312\Scripts\;C:\Python312\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\FPC\3.2.2\bin\i386-Win32;C:\php-8.4.4;C:\ProgramData\ComposerSetup\bin;C:\Program Files\Git\cmd;C:\Users\user\AppData\Local\Microsoft\WindowsApps;C:\Users\user\AppData\Roaming\npm;C:\Users\user\AppData\Roaming\Composer\vendor\bin;C:\Users\user\.bun\bin;C:\Users\user\AppData\Local\Programs\Microsoft VS Code\bin
+ChocolateyInstall=C:\ProgramData\chocolatey
+ANTIGRAVITY_TRAJECTORY_ID=859dd291-933a-40b7-9d5d-3358aec54884
+VSCODE_NLS_CONFIG={"userLocale":"en-us","osLocale":"en-id","resolvedLanguage":"en","defaultMessagesFile":"C:\\Users\\user\\AppData\\Local\\Programs\\Microsoft VS Code\\04c0d99f4f\\resources\\app\\out\\nls.messages.json","locale":"en-us","availableLanguages":{}}
+VSCODE_L10N_BUNDLE_LOCATION=
+VSCODE_CODE_CACHE_PATH=C:\Users\user\AppData\Roaming\Code\CachedData\04c0d99f4fb0d8afe6ce4f0c58e31e183ac3e4b1
+TMPDIR=C:\Users\user\AppData\Local\Temp
+ANTIGRAVITY_PROJECT_ID=9a2763df-81bc-42b4-9aff-88eb0d1faace
+ANTIGRAVITY_SOURCE_METADATA={"tool":{"conversationId":"544554de-2b51-448d-803a-d1573980b9e3","stepIndex":13,"toolCall":{"id":"call_738109","name":"run_command","argumentsJson":"{\"CommandLine\":\"git credential-manager diagnose\",\"Cwd\":\"c:\\\\Project\\\\business-center\",\"WaitMsBeforeAsync\":5000,\"toolAction\":\"Diagnosing git credentials\",\"toolSummary\":\"Git credential manager diagnose\"}","thinkingSignature":"ErkJCrYJAWkUfRMfH1gboojc/+ZnDxhkGiMSDTWnfYbyvtbAnDVO7wSvyVlQFROGSpl1Zx2L96ToSM51jREMxy0hkEyCzz1cNqSIit5JZZabP5g36iJof2ly9YC3w+afDSgKuesZU0E4kfz7MUkOs/YSMinLQLJ8bD+IxsVLMapAmWulBGXHFecvFq4EOWzMY3CDlAfUOKy09ov9ebICweVqDUgIqBJvDxR/vxs/52UneCcGJwlvreM5L+P2FFyOAr1HL9yIb2aBPMX21Aa2x8AJmosWAzEnY6ofaQHAhP5fMt3rxTZ9yX0dr4x5LdYVYPqKFu+Jtw2fsNj6eM4bGmtpBAwoDolo2Bad/Ck/46qkh+SsxM9z0uTQgQC/9RV3C/cd30CDhYLSGZrgDF+1hCZ/BKNOOeJXU0jTm/dQO2hGAGv29tzqjV2VyiezlE5sr87sM5E6v6Ow8TQ9gKopz1RW+dC3j7Bs+k93yfbqiMaL4OhErRuDsD0J5bjpw6Q4ECQthStw0YymO6kj1Ai0SglEwuNJZm+HUEbpg29DWzniJJlhtHr2X3w9Y1wL3VBNu5JlTxsajxbERNiuWQrGguO6NGy9cG2cUlsbEu6g0+/qt7NKkce2kXooUISaX74XE70aEao9eseZu0nytkqRy++RXbuT96+ES/liulesXSfvR6LJ9PsMShRjwE0MIWBjYqRiTQwkH0I0bUNa5IegqKv116pZ7L0fgxiCfGxZ8HtER6ZlUOU5MGqPfCvQgcVhVwHArNtp9Ul5lswyEljg25JYjlglr6BaOk+QvoGoTQ+dXBe4LEZXO7kH60JrY6YPVAmd0nNKVQwW7p/G9Sj5h4YP2hg3tzEvy6y8M/q3mkxvwnFx22a9rk7iIYe2Yahl95majywv/swKvE+zgX+wWHSEB/NwHSS8jrNbTRX3SG0Hoj/HHpPc+GA7PsWPzKzbNEU5qJwNl/7eOkrNJoJGIibHIwaDF1TQT2k6f8wpuaDpDm/1RcJYpILtSk+jq3mDc6uZRhwe4768Y540Opg/k5OwA3PR/OEX3rG7Mr32HLa+9flDoa/tFTXYx+0O9xdOh5Tj3A+isyKsSyINsFRL88d5nXrxz9UgugHs62lmqRd5+YLfeDQfwtYXwdDAHsoLSYui3lGII6WkgeuHNHxw6P44EVkSd6Po1EGS5UQGds+d8kEGTEM9dym8dBUEozyR71zxYgCPjYLN7gLfmJUu3MA3Hgb20Hf4uAbBxusCqtfIJhaGgDRAxBedOLJ9FrXoGxFkx+b/v0ThFiCFSb1vUVVT4Fyxnn5ItcY0u4l7EbDfIZvgRL6F1jn8EJGVTIpuUzyqS8lnlScLfduLXWn5Zt9JAdnLv+5qI6w8iaT4/W6vtf8u4vayY15d3QMhzPJlxQwUkRthFcKHWweZ/eQJuwP5iJbv7OEWpigZvFgM2wIEjXVjZAEXl5Shg5vCNg0A467uX/deamEJDbNOg7hCOr3M5DPCtyvVVimYTzxuK6/ZCCCn7RB0Qe0fGLD6oH1pYek/j4ZvYTtphs8sm4Fp2YVfhGxXUwFEZjtpdXbgto8LxxW45ijDbdkgLobCoc9TXGHl5yHaWS+jKuyp"}}}
+HOME=C:\Users\user
+ANTIGRAVITY_AGENT=1
+SystemRoot=C:\WINDOWS
+CommonProgramW6432=C:\Program Files\Common Files
+APPLICATION_INSIGHTS_NO_STATSBEAT=true
+LOGONSERVER=\\LAPTOP-FCPGN0ES
+VSCODE_CWD=C:\Project\business-center
+MXC_BIN_DIR=c:\Users\user\AppData\Local\Programs\Microsoft VS Code\04c0d99f4f\resources\app\node_modules.asar.unpacked\@microsoft\mxc-sdk\bin
+ANTIGRAVITY_AUTH_SUCCESS_APP=vscode
+USERDOMAIN_ROAMINGPROFILE=LAPTOP-FCPGN0ES
+TERM=xterm-256color
+ANTIGRAVITY_AGENTAPI_EXE=C:\Users\user\.gemini\bin\agy.exe
+HOMEDRIVE=C:
+VSCODE_PID=2232
+PSModulePath=C:\Users\user\OneDrive\Documents\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+ELECTRON_RUN_AS_NODE=1
+ANTIGRAVITY_LS_VERSION=cli-2.17.0
+PROCESSOR_ARCHITEW6432=AMD64
+FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer
+PROCESSOR_ARCHITECTURE=x86
+USERPROFILE=C:\Users\user
+OS=Windows_NT
+ComSpec=C:\WINDOWS\system32\cmd.exe
+SystemDrive=C:
+VSCODE_CRASH_REPORTER_PROCESS_TYPE=extensionHost
+OneDriveConsumer=C:\Users\user\OneDrive
+ALLUSERSPROFILE=C:\ProgramData
+
+
+------------
+Diagnostic: File system
+Skipped: False
+Success: True
+Exception: None
+Log:
+Temporary directory is 'C:\Users\user\AppData\Local\Temp\'...
+Checking basic file I/O...
+Writing to temporary file 'C:\Users\user\AppData\Local\Temp\3a35495893d52f73a17ac72d'... OK
+Reading from temporary file 'C:\Users\user\AppData\Local\Temp\3a35495893d52f73a17ac72d'... OK
+Deleting temporary file 'C:\Users\user\AppData\Local\Temp\3a35495893d52f73a17ac72d'... OK
+Testing IFileSystem instance...
+UserHomePath: C:\Users\user
+UserDataDirectoryPath: C:\Users\user\.gcm
+GetCurrentDirectory(): C:\Project\business-center
+
+------------
+Diagnostic: Networking
+Skipped: False
+Success: True
+Exception: None
+Log:
+Checking networking and HTTP stack...
+Creating HTTP client... OK
+IsNetworkAvailable: True
+Sending HEAD request to http://example.com...Sending HEAD request to https://example.com... OK
+ OK
+Acquiring free TCP port... OK
+Testing local HTTP loopback connections...
+Creating new HTTP listener for http://localhost:57920/... OK
+Waiting for loopback connection... OK
+Writing response... OK
+Waiting for response data... OK
+Loopback connection data OK
+
+------------
+Diagnostic: Git
+Skipped: False
+Success: True
+Exception: None
+Log:
+Getting Git version... OK
+Git version is '2.47.1.windows.1'
+Locating current repository...Git repository at 'C:/Project/business-center/.git'
+ OK
+Listing all Git configuration... OK
+Git configuration:
+file:C:/Program Files/Git/etc/gitconfig	diff.astextplain.textconv=astextplain
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.clean=git-lfs clean -- %f
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.smudge=git-lfs smudge -- %f
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.process=git-lfs filter-process
+file:C:/Program Files/Git/etc/gitconfig	filter.lfs.required=true
+file:C:/Program Files/Git/etc/gitconfig	http.sslbackend=openssl
+file:C:/Program Files/Git/etc/gitconfig	http.sslcainfo=C:/Program Files/Git/mingw64/etc/ssl/certs/ca-bundle.crt
+file:C:/Program Files/Git/etc/gitconfig	core.autocrlf=true
+file:C:/Program Files/Git/etc/gitconfig	core.fscache=true
+file:C:/Program Files/Git/etc/gitconfig	core.symlinks=false
+file:C:/Program Files/Git/etc/gitconfig	pull.rebase=false
+file:C:/Program Files/Git/etc/gitconfig	credential.helper=manager
+file:C:/Program Files/Git/etc/gitconfig	credential.https://dev.azure.com.usehttppath=true
+file:C:/Program Files/Git/etc/gitconfig	init.defaultbranch=master
+file:C:/Users/user/.gitconfig	user.name=Agung
+file:C:/Users/user/.gitconfig	user.email=dzragung19@gmail.com
+file:.git/config	core.repositoryformatversion=0
+file:.git/config	core.filemode=false
+file:.git/config	core.bare=false
+file:.git/config	core.logallrefupdates=true
+file:.git/config	core.symlinks=false
+file:.git/config	core.ignorecase=true
+file:.git/config	remote.origin.url=https://github.com/agung019-UI/business-center-vue.git
+file:.git/config	remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+file:.git/config	branch.main.remote=origin
+file:.git/config	branch.main.merge=refs/heads/main
+
+
+------------
+Diagnostic: Credential storage
+Skipped: False
+Success: True
+Exception: None
+Log:
+ICredentialStore instance is of type: CredentialStore
+Writing test credential... OK
+Reading test credential... OK
+Deleting test credential... OK
+
+------------
+Diagnostic: Microsoft authentication (AAD/MSA)
+Skipped: False
+Success: True
+Exception: None
+Log:
+Broker is not enabled.
+Flow type is: Auto
+Gathering MSAL token cache data... OK
+CacheDirectory: C:\Users\user\AppData\Local\.IdentityService
+CacheFileName: msal.cache
+CacheFilePath: C:\Users\user\AppData\Local\.IdentityService\msal.cache
+Creating cache helper... OK
+Verifying MSAL token cache persistence... OK
+
+------------
+Diagnostic: GitHub API
+Skipped: False
+Success: True
+Exception: None
+Log:
+Using 'https://github.com/' as API target.
+Querying '/meta' endpoint... OK
+

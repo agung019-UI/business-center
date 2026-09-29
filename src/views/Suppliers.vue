@@ -5,7 +5,7 @@ import BaseModal from '@/components/ui/BaseModal.vue'
 import ConfirmDialog from '@/components/ui/ConfirmDialog.vue'
 import EmptyState from '@/components/ui/EmptyState.vue'
 import LoadingSpinner from '@/components/ui/LoadingSpinner.vue'
-import { Plus, Search, Pencil, Trash2, Eye, X } from 'lucide-vue-next'
+import { Plus, Search, Pencil, Trash2, Eye, X, Check } from 'lucide-vue-next'
 
 const toast = inject('toast')
 
@@ -16,7 +16,8 @@ const deleting = ref(false)
 const search = ref('')
 
 const showModal = ref(false)
-const editing = ref(null)
+const inlineEditId = ref(null)
+const inlineEditForm = ref(defaultForm())
 const deleteTarget = ref(null)
 const viewingSupplier = ref(null)
 
@@ -44,28 +45,38 @@ async function fetchSuppliers() {
 }
 
 function openAdd() {
-  editing.value = null
   form.value = defaultForm()
   showModal.value = true
 }
 
-function openEdit(s) {
-  editing.value = s
-  form.value = { name: s.name, contact: s.contact || '', phone: s.phone || '', email: s.email || '', address: s.address || '', note: s.note || '', status: s.status || 'AKTIF' }
-  showModal.value = true
+function openInlineEdit(s) {
+  inlineEditId.value = s.id
+  inlineEditForm.value = { name: s.name, contact: s.contact || '', phone: s.phone || '', email: s.email || '', address: s.address || '', note: s.note || '', status: s.status || 'AKTIF' }
+}
+function cancelInlineEdit() {
+  inlineEditId.value = null
+}
+async function saveInlineEdit() {
+  if (!inlineEditForm.value.name.trim()) { toast?.('Nama supplier wajib diisi.', 'error'); return }
+  saving.value = true
+  try {
+    await supplierService.updateSupplier(inlineEditId.value, inlineEditForm.value)
+    toast?.('Supplier diperbarui.', 'success')
+    inlineEditId.value = null
+    fetchSuppliers()
+  } catch (e) {
+    toast?.(e.message, 'error')
+  } finally {
+    saving.value = false
+  }
 }
 
 async function save() {
   if (!form.value.name.trim()) { toast?.('Nama supplier wajib diisi.', 'error'); return }
   saving.value = true
   try {
-    if (editing.value) {
-      await supplierService.updateSupplier(editing.value.id, form.value)
-      toast?.('Supplier diperbarui.', 'success')
-    } else {
-      await supplierService.createSupplier(form.value)
-      toast?.('Supplier ditambahkan.', 'success')
-    }
+    await supplierService.createSupplier(form.value)
+    toast?.('Supplier ditambahkan.', 'success')
     showModal.value = false
     fetchSuppliers()
   } catch (e) {
@@ -129,22 +140,42 @@ onMounted(fetchSuppliers)
             </thead>
             <tbody>
               <tr v-for="s in filtered()" :key="s.id" class="border-b border-gray-100 last:border-0 hover:bg-gray-50">
-                <td class="px-4 py-3 font-mono text-xs text-gray-500">{{ s.code }}</td>
-                <td class="px-3 py-3 font-semibold text-gray-800">{{ s.name }}</td>
-                <td class="px-3 py-3 text-gray-500">{{ s.contact }}</td>
-                <td class="px-3 py-3 text-gray-500">{{ s.phone }}</td>
-                <td class="px-3 py-3">
-                  <span :class="['text-[10.5px] font-bold px-2 py-0.5 rounded-full', s.status === 'AKTIF' ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-500']">
-                    {{ s.status || 'AKTIF' }}
-                  </span>
-                </td>
-                <td class="px-4 py-3">
-                  <div class="flex justify-end gap-1">
-                    <button class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition" @click="viewingSupplier = s"><Eye class="w-4 h-4" /></button>
-                    <button class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition" @click="openEdit(s)"><Pencil class="w-4 h-4" /></button>
-                    <button class="p-1.5 rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-500 transition" @click="deleteTarget = s"><Trash2 class="w-4 h-4" /></button>
-                  </div>
-                </td>
+                <template v-if="inlineEditId === s.id">
+                  <td class="px-4 py-3 font-mono text-xs text-gray-500">{{ s.code }}</td>
+                  <td class="px-3 py-3"><input v-model="inlineEditForm.name" class="w-full px-2 py-1 rounded border text-sm" /></td>
+                  <td class="px-3 py-3"><input v-model="inlineEditForm.contact" class="w-full px-2 py-1 rounded border text-sm" /></td>
+                  <td class="px-3 py-3"><input v-model="inlineEditForm.phone" class="w-full px-2 py-1 rounded border text-sm" /></td>
+                  <td class="px-3 py-3">
+                    <select v-model="inlineEditForm.status" class="w-full px-2 py-1 rounded border text-sm">
+                      <option value="AKTIF">AKTIF</option>
+                      <option value="NONAKTIF">NONAKTIF</option>
+                    </select>
+                  </td>
+                  <td class="px-4 py-3">
+                    <div class="flex justify-end gap-1">
+                      <button class="p-1.5 rounded-lg text-green-600 hover:bg-green-50 transition" @click="saveInlineEdit"><Check class="w-4 h-4" /></button>
+                      <button class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 transition" @click="cancelInlineEdit"><X class="w-4 h-4" /></button>
+                    </div>
+                  </td>
+                </template>
+                <template v-else>
+                  <td class="px-4 py-3 font-mono text-xs text-gray-500">{{ s.code }}</td>
+                  <td class="px-3 py-3 font-semibold text-gray-800">{{ s.name }}</td>
+                  <td class="px-3 py-3 text-gray-500">{{ s.contact }}</td>
+                  <td class="px-3 py-3 text-gray-500">{{ s.phone }}</td>
+                  <td class="px-3 py-3">
+                    <span :class="['text-[10.5px] font-bold px-2 py-0.5 rounded-full', s.status === 'AKTIF' ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-500']">
+                      {{ s.status || 'AKTIF' }}
+                    </span>
+                  </td>
+                  <td class="px-4 py-3">
+                    <div class="flex justify-end gap-1">
+                      <button class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition" @click="viewingSupplier = s"><Eye class="w-4 h-4" /></button>
+                      <button class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition" @click="openInlineEdit(s)"><Pencil class="w-4 h-4" /></button>
+                      <button class="p-1.5 rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-500 transition" @click="deleteTarget = s"><Trash2 class="w-4 h-4" /></button>
+                    </div>
+                  </td>
+                </template>
               </tr>
             </tbody>
           </table>
@@ -154,7 +185,7 @@ onMounted(fetchSuppliers)
     </div>
 
     <!-- Add/Edit Modal -->
-    <BaseModal :show="showModal" :title="editing ? 'Edit Supplier' : 'Tambah Supplier'" size="md" @close="showModal = false">
+    <BaseModal :show="showModal" :title="'Tambah Supplier'" size="md" @close="showModal = false">
       <form class="p-5 space-y-3" @submit.prevent="save">
         <div>
           <label class="text-xs font-semibold text-gray-600 block mb-1">Nama Supplier *</label>

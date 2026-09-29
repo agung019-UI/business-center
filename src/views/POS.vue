@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { ref, computed, onMounted, inject } from 'vue'
 import { useCartStore } from '@/stores/cart'
 import { useSalesStore } from '@/stores/sales'
@@ -134,6 +134,7 @@ async function confirmPayment() {
         price: i.sell_price,
         qty: i.qty,
         subtotal: i.sell_price * i.qty,
+        expiration_date: i.expiration_date || null
       })),
       subtotal: cartStore.subtotal,
       discount: cartStore.discountAmount,

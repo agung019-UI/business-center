@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { ref, computed, onMounted, inject } from 'vue'
 import { usePurchaseStore } from '@/stores/purchase'
 import { rupiah } from '@/utils/currency'
@@ -19,7 +19,7 @@ const showModal = ref(false)
 const products = ref([])
 const suppliers = ref([])
 
-const defaultForm = () => ({ supplier_id: '', payment_method: 'CASH', note: '', items: [{ product_id: '', qty: 1, price: 0 }] })
+const defaultForm = () => ({ supplier_id: '', payment_method: 'CASH', note: '', items: [{ product_id: '', qty: 1, price: 0, expiration_date: '' }] })
 const form = ref(defaultForm())
 
 const formTotal = computed(() =>
@@ -27,7 +27,7 @@ const formTotal = computed(() =>
 )
 
 function addLine() {
-  form.value.items.push({ product_id: '', qty: 1, price: 0 })
+  form.value.items.push({ product_id: '', qty: 1, price: 0, expiration_date: '' })
 }
 
 function removeLine(idx) {
@@ -52,6 +52,7 @@ async function save() {
         qty: Number(i.qty),
         price: Number(i.price),
         subtotal: Number(i.qty) * Number(i.price),
+        expiration_date: i.expiration_date || null
       })),
       total: formTotal.value,
     })
@@ -205,6 +206,12 @@ onMounted(async () => {
                 min="0"
                 placeholder="Harga"
                 class="w-24 px-2 py-2 rounded-lg border border-gray-200 outline-none text-xs no-spin focus:border-green-500"
+              />
+              <input
+                v-model="line.expiration_date"
+                type="date"
+                title="Tanggal Kedaluwarsa"
+                class="w-32 px-2 py-2 rounded-lg border border-gray-200 outline-none text-xs focus:border-green-500"
               />
               <button type="button" class="text-gray-400 hover:text-red-500 shrink-0 transition" @click="removeLine(idx)">
                 <Trash2 class="w-4 h-4" />

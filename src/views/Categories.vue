@@ -5,7 +5,7 @@ import BaseModal from '@/components/ui/BaseModal.vue'
 import ConfirmDialog from '@/components/ui/ConfirmDialog.vue'
 import EmptyState from '@/components/ui/EmptyState.vue'
 import LoadingSpinner from '@/components/ui/LoadingSpinner.vue'
-import { Plus, Search, Pencil, Trash2, Tag } from 'lucide-vue-next'
+import { Plus, Search, Pencil, Trash2, Tag, Check, X } from 'lucide-vue-next'
 
 const toast = inject('toast')
 
@@ -16,7 +16,8 @@ const deleting = ref(false)
 const search = ref('')
 
 const showModal = ref(false)
-const editing = ref(null)
+const inlineEditId = ref(null)
+const inlineEditForm = ref({ name: '' })
 const deleteTarget = ref(null)
 const form = ref({ name: '' })
 
@@ -38,28 +39,40 @@ async function fetchCategories() {
 }
 
 function openAdd() {
-  editing.value = null
   form.value = { name: '' }
   showModal.value = true
 }
 
-function openEdit(c) {
-  editing.value = c
-  form.value = { name: c.name }
-  showModal.value = true
+function openInlineEdit(c) {
+  inlineEditId.value = c.id
+  inlineEditForm.value = { name: c.name }
+}
+
+function cancelInlineEdit() {
+  inlineEditId.value = null
+}
+
+async function saveInlineEdit() {
+  if (!inlineEditForm.value.name.trim()) { toast?.('Nama kategori wajib diisi.', 'error'); return }
+  saving.value = true
+  try {
+    await categoryService.updateCategory(inlineEditId.value, inlineEditForm.value)
+    toast?.('Kategori diperbarui.', 'success')
+    inlineEditId.value = null
+    fetchCategories()
+  } catch (e) {
+    toast?.(e.message, 'error')
+  } finally {
+    saving.value = false
+  }
 }
 
 async function save() {
   if (!form.value.name.trim()) { toast?.('Nama kategori wajib diisi.', 'error'); return }
   saving.value = true
   try {
-    if (editing.value) {
-      await categoryService.updateCategory(editing.value.id, form.value)
-      toast?.('Kategori diperbarui.', 'success')
-    } else {
-      await categoryService.createCategory(form.value)
-      toast?.('Kategori ditambahkan.', 'success')
-    }
+    await categoryService.createCategory(form.value)
+    toast?.('Kategori ditambahkan.', 'success')
     showModal.value = false
     fetchCategories()
   } catch (e) {
@@ -118,17 +131,26 @@ onMounted(fetchCategories)
             :key="c.id"
             class="flex items-center justify-between p-3.5 rounded-xl border border-gray-200 hover:border-green-200 transition"
           >
-            <div class="flex items-center gap-2.5">
-              <Tag class="w-4 h-4 text-green-500 shrink-0" />
-              <div>
-                <p class="font-semibold text-gray-800 text-sm">{{ c.name }}</p>
-                <p class="text-[11px] text-gray-400">{{ c.products_count ?? 0 }} produk</p>
+            <template v-if="inlineEditId === c.id">
+              <input v-model="inlineEditForm.name" class="flex-1 mr-3 px-2 py-1 rounded border border-gray-300 text-sm focus:border-green-500 outline-none" @keyup.enter="saveInlineEdit" />
+              <div class="flex gap-1 shrink-0">
+                <button class="p-1.5 rounded-lg text-green-600 hover:bg-green-50 transition" @click="saveInlineEdit" :disabled="saving"><Check class="w-4 h-4" /></button>
+                <button class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 transition" @click="cancelInlineEdit"><X class="w-4 h-4" /></button>
               </div>
-            </div>
-            <div class="flex gap-1">
-              <button class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition" @click="openEdit(c)"><Pencil class="w-3.5 h-3.5" /></button>
-              <button class="p-1.5 rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-500 transition" @click="deleteTarget = c"><Trash2 class="w-3.5 h-3.5" /></button>
-            </div>
+            </template>
+            <template v-else>
+              <div class="flex items-center gap-2.5">
+                <Tag class="w-4 h-4 text-green-500 shrink-0" />
+                <div>
+                  <p class="font-semibold text-gray-800 text-sm">{{ c.name }}</p>
+                  <p class="text-[11px] text-gray-400">{{ c.products_count ?? 0 }} produk</p>
+                </div>
+              </div>
+              <div class="flex gap-1">
+                <button class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition" @click="openInlineEdit(c)"><Pencil class="w-3.5 h-3.5" /></button>
+                <button class="p-1.5 rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-500 transition" @click="deleteTarget = c"><Trash2 class="w-3.5 h-3.5" /></button>
+              </div>
+            </template>
           </div>
         </div>
         <EmptyState v-else title="Tidak ada kategori" description="Tambah kategori untuk mengorganisir produk." />
@@ -136,7 +158,7 @@ onMounted(fetchCategories)
     </div>
 
     <!-- Modal -->
-    <BaseModal :show="showModal" :title="editing ? 'Edit Kategori' : 'Tambah Kategori'" size="sm" @close="showModal = false">
+    <BaseModal :show="showModal" :title="'Tambah Kategori'" size="sm" @close="showModal = false">
       <form class="p-6" @submit.prevent="save">
         <label class="text-sm font-semibold text-gray-700 block mb-1.5">Nama Kategori *</label>
         <input v-model="form.name" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-200 focus:border-green-500 outline-none text-sm mb-5" placeholder="contoh: Makanan" />

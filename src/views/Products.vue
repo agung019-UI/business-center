@@ -11,7 +11,7 @@ import ConfirmDialog from '@/components/ui/ConfirmDialog.vue'
 import BasePagination from '@/components/ui/BasePagination.vue'
 import EmptyState from '@/components/ui/EmptyState.vue'
 import LoadingSpinner from '@/components/ui/LoadingSpinner.vue'
-import { Plus, Search, Pencil, Trash2 } from 'lucide-vue-next'
+import { Plus, Search, Pencil, Trash2, Check, X } from 'lucide-vue-next'
 
 const toast = inject('toast')
 const authStore = useAuthStore()
@@ -26,7 +26,8 @@ const categories = ref([])
 const suppliers = ref([])
 
 const showModal = ref(false)
-const editing = ref(null)
+const inlineEditId = ref(null)
+const inlineEditForm = ref(defaultForm())
 const deleteTarget = ref(null)
 const deletingLoading = ref(false)
 const savingLoading = ref(false)
@@ -50,14 +51,13 @@ function defaultForm() {
 }
 
 function openAdd() {
-  editing.value = null
   form.value = defaultForm()
   showModal.value = true
 }
 
-function openEdit(p) {
-  editing.value = p
-  form.value = {
+function openInlineEdit(p) {
+  inlineEditId.value = p.id
+  inlineEditForm.value = {
     name: p.name,
     barcode: p.barcode || '',
     description: p.description || '',
@@ -70,7 +70,26 @@ function openEdit(p) {
     unit: p.unit,
     active: p.active !== false,
   }
-  showModal.value = true
+}
+
+function cancelInlineEdit() {
+  inlineEditId.value = null
+}
+
+async function saveInlineEdit() {
+  if (!inlineEditForm.value.name.trim()) { toast?.('Nama produk wajib diisi.', 'error'); return }
+  if (!inlineEditForm.value.category_id) { toast?.('Kategori wajib dipilih.', 'error'); return }
+  savingLoading.value = true
+  try {
+    await productStore.updateProduct(inlineEditId.value, inlineEditForm.value)
+    toast?.('Produk berhasil diperbarui.', 'success')
+    inlineEditId.value = null
+    fetchProducts()
+  } catch (e) {
+    toast?.(e.message, 'error')
+  } finally {
+    savingLoading.value = false
+  }
 }
 
 async function saveProduct() {
@@ -78,13 +97,8 @@ async function saveProduct() {
   if (!form.value.category_id) { toast?.('Kategori wajib dipilih.', 'error'); return }
   savingLoading.value = true
   try {
-    if (editing.value) {
-      await productStore.updateProduct(editing.value.id, form.value)
-      toast?.('Produk berhasil diperbarui.', 'success')
-    } else {
-      await productStore.createProduct(form.value)
-      toast?.('Produk berhasil ditambahkan.', 'success')
-    }
+    await productStore.createProduct(form.value)
+    toast?.('Produk berhasil ditambahkan.', 'success')
     showModal.value = false
     fetchProducts()
   } catch (e) {
@@ -212,38 +226,72 @@ onMounted(async () => {
                 :key="p.id"
                 class="border-b border-gray-100 last:border-0 hover:bg-gray-50"
               >
-                <td class="px-4 py-3">
-                  <div>
-                    <p class="font-semibold text-gray-800">{{ p.name }}</p>
-                    <p class="text-[11px] text-gray-400 font-mono">{{ p.code }} • {{ p.barcode }}</p>
-                  </div>
-                </td>
-                <td class="px-3 py-3 text-gray-500">{{ p.category?.name || p.category }}</td>
-                <td class="px-3 py-3 text-gray-500 num">{{ rupiah(p.cost_price) }}</td>
-                <td class="px-3 py-3 font-semibold text-gray-800 num">{{ rupiah(p.sell_price) }}</td>
-                <td class="px-3 py-3 num">{{ p.stock }} {{ p.unit }}</td>
-                <td class="px-3 py-3">
-                  <span :class="['text-[10.5px] font-bold px-2 py-0.5 rounded', stockStatus(p).cls]">
-                    {{ stockStatus(p).label }}
-                  </span>
-                </td>
-                <td class="px-4 py-3">
-                  <div class="flex justify-end gap-1">
-                    <button
-                      class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600"
-                      @click="openEdit(p)"
-                    >
-                      <Pencil class="w-4 h-4" />
-                    </button>
-                    <button
-                      v-if="authStore.isAdmin"
-                      class="p-1.5 rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-500"
-                      @click="deleteTarget = p"
-                    >
-                      <Trash2 class="w-4 h-4" />
-                    </button>
-                  </div>
-                </td>
+                <template v-if="inlineEditId === p.id">
+                  <td class="px-4 py-3">
+                    <div class="flex flex-col gap-1">
+                      <input v-model="inlineEditForm.name" placeholder="Nama Produk" class="w-full px-2 py-1 rounded border text-sm" />
+                      <input v-model="inlineEditForm.barcode" placeholder="Barcode" class="w-full px-2 py-1 rounded border text-xs" />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3">
+                    <select v-model="inlineEditForm.category_id" class="w-full px-2 py-1 rounded border text-sm">
+                      <option v-for="c in categories" :key="c.id" :value="c.id">{{ c.name }}</option>
+                    </select>
+                  </td>
+                  <td class="px-3 py-3"><input v-model="inlineEditForm.cost_price" type="number" class="w-full px-2 py-1 rounded border text-sm" /></td>
+                  <td class="px-3 py-3"><input v-model="inlineEditForm.sell_price" type="number" class="w-full px-2 py-1 rounded border text-sm" /></td>
+                  <td class="px-3 py-3">
+                    <div class="flex items-center gap-1">
+                      <input v-model="inlineEditForm.stock" type="number" class="w-16 px-2 py-1 rounded border text-sm" />
+                      <input v-model="inlineEditForm.unit" placeholder="Satuan" class="w-12 px-2 py-1 rounded border text-sm" />
+                    </div>
+                  </td>
+                  <td class="px-3 py-3">
+                    <label class="flex items-center gap-1 text-xs whitespace-nowrap">
+                      <input v-model="inlineEditForm.active" type="checkbox" /> Aktif
+                    </label>
+                  </td>
+                  <td class="px-4 py-3">
+                    <div class="flex justify-end gap-1">
+                      <button class="p-1.5 rounded-lg text-green-600 hover:bg-green-50" @click="saveInlineEdit"><Check class="w-4 h-4" /></button>
+                      <button class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100" @click="cancelInlineEdit"><X class="w-4 h-4" /></button>
+                    </div>
+                  </td>
+                </template>
+                <template v-else>
+                  <td class="px-4 py-3">
+                    <div>
+                      <p class="font-semibold text-gray-800">{{ p.name }}</p>
+                      <p class="text-[11px] text-gray-400 font-mono">{{ p.code }} • {{ p.barcode }}</p>
+                    </div>
+                  </td>
+                  <td class="px-3 py-3 text-gray-500">{{ p.category?.name || p.category }}</td>
+                  <td class="px-3 py-3 text-gray-500 num">{{ rupiah(p.cost_price) }}</td>
+                  <td class="px-3 py-3 font-semibold text-gray-800 num">{{ rupiah(p.sell_price) }}</td>
+                  <td class="px-3 py-3 num">{{ p.stock }} {{ p.unit }}</td>
+                  <td class="px-3 py-3">
+                    <span :class="['text-[10.5px] font-bold px-2 py-0.5 rounded', stockStatus(p).cls]">
+                      {{ stockStatus(p).label }}
+                    </span>
+                  </td>
+                  <td class="px-4 py-3">
+                    <div class="flex justify-end gap-1">
+                      <button
+                        class="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                        @click="openInlineEdit(p)"
+                      >
+                        <Pencil class="w-4 h-4" />
+                      </button>
+                      <button
+                        v-if="authStore.isAdmin"
+                        class="p-1.5 rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-500"
+                        @click="deleteTarget = p"
+                      >
+                        <Trash2 class="w-4 h-4" />
+                      </button>
+                    </div>
+                  </td>
+                </template>
               </tr>
             </tbody>
           </table>
@@ -268,7 +316,7 @@ onMounted(async () => {
     <!-- Add/Edit Modal -->
     <BaseModal
       :show="showModal"
-      :title="editing ? 'Edit Produk' : 'Tambah Produk'"
+      :title="'Tambah Produk'"
       size="lg"
       @close="showModal = false"
     >
