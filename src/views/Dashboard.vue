@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useDashboardStore } from '@/stores/dashboard'
@@ -31,6 +31,7 @@ const s = dashboardStore
         <p class="text-sm text-gray-400">Ringkasan aktivitas Business Center hari ini</p>
       </div>
       <RouterLink
+        v-if="!authStore.isAdmin"
         to="/pos"
         class="hidden sm:flex items-center gap-2 px-4 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-semibold shadow-sm transition"
       >
