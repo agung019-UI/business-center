@@ -49,7 +49,7 @@ const routes = [
         path: 'pos',
         name: 'POS',
         component: POS,
-        meta: { requiresAuth: true, roles: ['ADMIN', 'KASIR'], title: 'Kasir / POS' },
+        meta: { requiresAuth: true, roles: ['KASIR'], title: 'Kasir / POS' },
       },
       {
         path: 'penjualan',
