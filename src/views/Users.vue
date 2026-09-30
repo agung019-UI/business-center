@@ -31,8 +31,8 @@ const form = ref(defaultForm())
 const filtered = () =>
   search.value.trim()
     ? users.value.filter((u) =>
-        u.name.toLowerCase().includes(search.value.toLowerCase()) ||
-        u.username.toLowerCase().includes(search.value.toLowerCase()),
+        (u.name || '').toLowerCase().includes(search.value.toLowerCase()) ||
+        (u.username || '').toLowerCase().includes(search.value.toLowerCase()),
       )
     : users.value
 
@@ -176,7 +176,7 @@ onMounted(fetchUsers)
                   <td class="px-4 py-3">
                     <div class="flex items-center gap-2.5">
                       <div class="w-8 h-8 rounded-full bg-gray-700 text-white text-xs font-bold flex items-center justify-center shrink-0">
-                        {{ u.name.slice(0, 2).toUpperCase() }}
+                        {{ (u.name || 'U').slice(0, 2).toUpperCase() }}
                       </div>
                       <span class="font-semibold text-gray-800">{{ u.name }}</span>
                     </div>
