@@ -7,8 +7,9 @@ export const userService = {
     
     if (data.data) {
       users = data.data.map(u => {
-        const nis = u.nis || u.nisn
-        const isAdmin = nis === '192012' || nis.toLowerCase().includes('admin') || (u.nama_kasir || '').toLowerCase().includes('admin')
+        const nis = String(u.nis || u.nisn || '')
+        const nama = String(u.nama_kasir || '')
+        const isAdmin = nis === '192012' || nis.toLowerCase().includes('admin') || nama.toLowerCase().includes('admin')
         return {
           id: nis,
           name: u.nama_kasir,
@@ -20,8 +21,8 @@ export const userService = {
     }
     
     if (params.search) {
-      const q = params.search.toLowerCase()
-      users = users.filter(u => u.name.toLowerCase().includes(q) || u.username.toLowerCase().includes(q))
+      const q = String(params.search).toLowerCase()
+      users = users.filter(u => String(u.name || '').toLowerCase().includes(q) || String(u.username || '').toLowerCase().includes(q))
     }
     
     return users
