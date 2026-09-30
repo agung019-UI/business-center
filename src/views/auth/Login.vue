@@ -17,9 +17,16 @@ const loginRole = ref('KASIR') // Default tab KASIR
 async function handleLogin() {
   error.value = ''
   if (!form.value.username.trim() || !form.value.password.trim()) {
-    error.value = 'Username dan password wajib diisi.'
+    error.value = `${loginRole.value === 'KASIR' ? 'NISN' : 'Username'} dan password wajib diisi.`
     return
   }
+
+  // Validasi kombinasi huruf dan angka untuk password ADMIN
+  if (loginRole.value === 'ADMIN' && !/^(?=.*[a-zA-Z])(?=.*\d).+$/.test(form.value.password)) {
+    error.value = 'Password Admin harus merupakan kombinasi huruf dan angka.'
+    return
+  }
+
   try {
     const user = await authStore.login(form.value.username.trim(), form.value.password)
     
@@ -39,7 +46,11 @@ async function handleLogin() {
       router.push({ name: 'Dashboard' })
     }
   } catch (e) {
-    error.value = e.message || 'Username atau password salah.'
+    let msg = e.message || 'Username atau password salah.'
+    if (loginRole.value === 'ADMIN' && msg.toLowerCase().includes('nisn')) {
+      msg = 'Username atau password salah.'
+    }
+    error.value = msg
   }
 }
 </script>
