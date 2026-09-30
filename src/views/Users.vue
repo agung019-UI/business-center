@@ -64,10 +64,18 @@ function cancelInlineEdit() {
 
 async function saveInlineEdit() {
   if (!inlineEditForm.value.name.trim()) { toast?.('Nama lengkap wajib diisi.', 'error'); return }
-  if (!inlineEditForm.value.username.trim()) { toast?.('Username wajib diisi.', 'error'); return }
+  const username = inlineEditForm.value.username.trim()
+  if (!username) { toast?.('NISN wajib diisi.', 'error'); return }
+  if (!/^\d+$/.test(username)) { toast?.('Format salah: Gunakan NISN (hanya angka).', 'error'); return }
+  
+  const password = inlineEditForm.value.password.trim()
+  if (password && !/^(?=.*[a-zA-Z])(?=.*\d).+$/.test(password)) {
+    toast?.('Password harus kombinasi huruf dan angka.', 'error'); return
+  }
+
   saving.value = true
   try {
-    const payload = { ...inlineEditForm.value }
+    const payload = { ...inlineEditForm.value, username, password }
     if (!payload.password) delete payload.password
     await userService.updateUser(inlineEditId.value, payload)
     toast?.('Pengguna diperbarui.', 'success')
@@ -82,8 +90,17 @@ async function saveInlineEdit() {
 
 async function save() {
   if (!form.value.name.trim()) { toast?.('Nama lengkap wajib diisi.', 'error'); return }
-  if (!form.value.username.trim()) { toast?.('Username wajib diisi.', 'error'); return }
-  if (!form.value.password.trim()) { toast?.('Password wajib diisi untuk pengguna baru.', 'error'); return }
+  
+  const username = form.value.username.trim()
+  if (!username) { toast?.('NISN wajib diisi.', 'error'); return }
+  if (!/^\d+$/.test(username)) { toast?.('Format salah: Gunakan NISN (hanya angka).', 'error'); return }
+
+  const password = form.value.password.trim()
+  if (!password) { toast?.('Password wajib diisi untuk pengguna baru.', 'error'); return }
+  if (!/^(?=.*[a-zA-Z])(?=.*\d).+$/.test(password)) {
+    toast?.('Password harus kombinasi huruf dan angka.', 'error'); return
+  }
+
   saving.value = true
   try {
     const payload = { ...form.value }
@@ -154,7 +171,7 @@ onMounted(fetchUsers)
           <table class="w-full text-sm">
             <thead><tr class="text-left text-[11px] text-gray-400 uppercase border-b border-gray-100 bg-gray-50">
               <th class="px-4 py-3 font-semibold">Nama</th>
-              <th class="px-3 py-3 font-semibold">Username</th>
+              <th class="px-3 py-3 font-semibold">NISN</th>
               <th class="px-3 py-3 font-semibold">Role</th>
               <th class="px-3 py-3 font-semibold">Password</th>
               <th class="px-3 py-3 font-semibold">Dibuat</th>
@@ -164,7 +181,7 @@ onMounted(fetchUsers)
               <tr v-for="u in filtered()" :key="u.id" class="border-b border-gray-100 last:border-0 hover:bg-gray-50">
                 <template v-if="inlineEditId === u.id">
                   <td class="px-4 py-3"><input v-model="inlineEditForm.name" class="w-full px-2 py-1 rounded border text-sm" /></td>
-                  <td class="px-3 py-3"><input v-model="inlineEditForm.username" class="w-full px-2 py-1 rounded border text-sm" /></td>
+                  <td class="px-3 py-3"><input v-model="inlineEditForm.username" class="w-full px-2 py-1 rounded border text-sm" placeholder="Hanya angka" /></td>
                   <td class="px-3 py-3">
                     <span class="text-[10.5px] font-bold px-2 py-0.5 rounded-full bg-green-50 text-green-700">KASIR</span>
                   </td>
@@ -186,7 +203,7 @@ onMounted(fetchUsers)
                       <span class="font-semibold text-gray-800">{{ u.name }}</span>
                     </div>
                   </td>
-                  <td class="px-3 py-3 text-gray-500 font-mono text-xs">@{{ u.username }}</td>
+                  <td class="px-3 py-3 text-gray-500 font-mono text-xs">{{ u.username }}</td>
                   <td class="px-3 py-3">
                     <span :class="['text-[10.5px] font-bold px-2 py-0.5 rounded-full', roleClass(u.role)]">{{ u.role }}</span>
                   </td>
@@ -226,7 +243,7 @@ onMounted(fetchUsers)
           <input v-model="form.name" class="w-full px-3 py-2 rounded-lg border border-gray-200 outline-none text-sm focus:border-green-500" />
         </div>
         <div>
-          <label class="text-xs font-semibold text-gray-600 block mb-1">Username *</label>
+          <label class="text-xs font-semibold text-gray-600 block mb-1">NISN *</label>
           <input v-model="form.username" class="w-full px-3 py-2 rounded-lg border border-gray-200 outline-none text-sm focus:border-green-500" autocomplete="off" />
         </div>
         <div>
