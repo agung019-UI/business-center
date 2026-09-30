@@ -22,7 +22,7 @@ function openShiftPage() {
 
 <template>
   <!-- Root: full viewport, flex row, no overflow — children handle their own scroll -->
-  <div class="flex h-screen overflow-hidden bg-[#F5F7FA]">
+  <div class="flex h-[100dvh] overflow-hidden bg-[#F5F7FA]">
 
     <!-- Mobile overlay -->
     <Transition name="fade">
@@ -35,9 +35,9 @@ function openShiftPage() {
 
     <!-- ── Desktop sidebar ──
          Wrapper takes the natural width of <aside> (aside animates its own width).
-         sticky + h-screen keeps it pinned while main content scrolls.
+         sticky + h-[100dvh] keeps it pinned while main content scrolls.
     -->
-    <div class="hidden lg:block shrink-0 h-screen sticky top-0">
+    <div class="hidden lg:block shrink-0 h-[100dvh] sticky top-0">
       <Sidebar
         :collapsed="sidebarCollapsed"
         class="h-full"
@@ -47,7 +47,7 @@ function openShiftPage() {
 
     <!-- Mobile sidebar drawer -->
     <Transition name="slide">
-      <div v-if="mobileSidebarOpen" class="lg:hidden fixed inset-y-0 left-0 z-40 h-screen">
+      <div v-if="mobileSidebarOpen" class="lg:hidden fixed inset-y-0 left-0 z-40 h-[100dvh]">
         <Sidebar
           :collapsed="false"
           class="h-full"
