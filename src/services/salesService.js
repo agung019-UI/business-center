@@ -44,11 +44,13 @@ export const salesService = {
   async createSale(payload) {
     const token = localStorage.getItem('bcs_token')
     let id_kasir = '000000'
+    let cashier_name = 'KASIR'
     if (token) {
       const stored = localStorage.getItem(`bcs_user_${token}`)
       if (stored) {
         const user = JSON.parse(stored)
         id_kasir = user.id
+        cashier_name = user.name || user.username || 'KASIR'
       }
     }
 
@@ -132,7 +134,8 @@ export const salesService = {
     return {
       id: Date.now(),
       invoice_no: `INV-${Date.now()}`,
-      date: today,
+      date: new Date().toISOString(),
+      cashier_name: cashier_name,
       total: payload.total,
       payment_method: payload.payment_method,
       items: payload.items
