@@ -29,6 +29,7 @@ const maxStockForSelectedExp = computed(() => {
             Exp: {{ exp.tanggal_exp }} (Stok: {{ exp.stok }})
           </option>
         </select>
+        <input v-else type="date" v-model="item.expiration_date" class="text-[10px] px-1 py-0.5 rounded border border-gray-200 outline-none max-w-[100px]" title="Pilih Tanggal Expired" />
       </div>
     </div>
 

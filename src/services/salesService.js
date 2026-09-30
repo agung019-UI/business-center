@@ -76,7 +76,20 @@ export const salesService = {
 
     for (const item of payload.items) {
       let remainingQty = item.qty
-      // Cari stok untuk barang ini, urutkan berdasarkan tanggal kedaluwarsa (terdekat dulu)
+      
+      if (item.expiration_date) {
+        // Jika user secara manual memilih tanggal dari UI, gunakan tanggal itu 100%
+        finalItems.push({
+          id_barang: item.product_id,
+          tanggal_kedaluwarsa: item.expiration_date,
+          kuantitas: remainingQty,
+          harga_satuan: item.sell_price || item.price,
+          total_harga: remainingQty * (item.sell_price || item.price)
+        })
+        continue
+      }
+
+      // Jika tidak memilih (atau tidak ada dropdown), gunakan stok otomatis (terdekat dulu)
       const batches = expData
         .filter(e => e.id_barang === item.product_id && e.stok > 0)
         .sort((a, b) => new Date(a.tanggal_kedaluwarsa) - new Date(b.tanggal_kedaluwarsa))
@@ -89,20 +102,20 @@ export const salesService = {
           id_barang: item.product_id,
           tanggal_kedaluwarsa: batch.tanggal_kedaluwarsa,
           kuantitas: take,
-          harga_satuan: item.price,
-          total_harga: take * item.price
+          harga_satuan: item.sell_price || item.price,
+          total_harga: take * (item.sell_price || item.price)
         })
         remainingQty -= take
       }
 
-      // Jika masih ada sisa, paksa masukkan dengan tanggal hari ini
+      // Jika masih ada sisa (stok kurang tapi dipaksa jual), gunakan hari ini
       if (remainingQty > 0) {
         finalItems.push({
           id_barang: item.product_id,
           tanggal_kedaluwarsa: today,
           kuantitas: remainingQty,
-          harga_satuan: item.price,
-          total_harga: remainingQty * item.price
+          harga_satuan: item.sell_price || item.price,
+          total_harga: remainingQty * (item.sell_price || item.price)
         })
       }
     }

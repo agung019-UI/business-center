@@ -5,25 +5,40 @@ export const productService = {
    * GET /api/ambil_barang
    */
   async getProducts(params = {}) {
-    const { data } = await api.get('/api/ambil_barang')
+    const [productsRes, expRes] = await Promise.all([
+      api.get('/api/ambil_barang').catch(() => ({ data: {} })),
+      api.get('/api/ambil_stok_kedaluwarsa').catch(() => ({ data: {} }))
+    ])
+    
+    const data = productsRes.data
+    const expData = expRes.data?.datas || []
     
     let products = []
     if (data.datas) {
-      products = data.datas.map(item => ({
-        id: item.id_barang,
-        name: item.nama_barang,
-        category: item.nama_kategori, // frontend uses this
-        category_id: item.nama_kategori, 
-        sell_price: item.harga_jual,
-        cost_price: item.harga_beli,
-        stock: item.total_stok || 0,
-        unit: item.satuan,
-        barcode: item.id_barang,
-        code: item.id_barang,
-        list_tanggal_exp: item.list_tanggal_exp || [],
-        min_stock: 5, // fallback since backend doesn't provide
-        active: true
-      }))
+      products = data.datas.map(item => {
+        // Find batches for this product
+        const batches = expData.filter(e => e.id_barang === item.id_barang && e.stok > 0)
+        const list_tanggal_exp = batches.map(b => ({
+          tanggal_exp: b.tanggal_kedaluwarsa,
+          stok: b.stok
+        }))
+
+        return {
+          id: item.id_barang,
+          name: item.nama_barang,
+          category: item.nama_kategori,
+          category_id: item.nama_kategori, 
+          sell_price: item.harga_jual,
+          cost_price: item.harga_beli,
+          stock: item.total_stok || 0,
+          unit: item.satuan,
+          barcode: item.id_barang,
+          code: item.id_barang,
+          list_tanggal_exp: list_tanggal_exp,
+          min_stock: 5,
+          active: true
+        }
+      })
     }
 
     // Client-side filtering since backend doesn't support params yet
