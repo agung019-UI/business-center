@@ -2,6 +2,14 @@ import api from './api'
 
 export const authService = {
   async login(username, password) {
+    // Hardcode Admin Account
+    if (username === 'Admin' && password === 'Admin123') {
+      const user = { id: 'admin-1', username: 'Admin', name: 'Super Admin', role: 'ADMIN' }
+      const token = 'token-admin-1'
+      localStorage.setItem(`bcs_user_${token}`, JSON.stringify(user))
+      return { token, user }
+    }
+
     const { data } = await api.post('/api/login_user', {
       nis: username,
       password: password

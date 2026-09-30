@@ -15,9 +15,10 @@ export const userService = {
           name: u.nama_kasir,
           username: nis,
           role: isAdmin ? 'ADMIN' : 'KASIR',
+          password: u.password,
           active: true
         }
-      })
+      }).filter(u => u.role === 'KASIR')
     }
     
     if (params.search) {

@@ -88,7 +88,7 @@ async function save() {
   try {
     const payload = { ...form.value }
     await userService.createUser(payload)
-    toast?.('Pengguna berhasil ditambahkan.', 'success')
+    toast?.(`Berhasil! Akun kasir ${payload.name} telah dibuat.`, 'success')
     showModal.value = false
     fetchUsers()
   } catch (e) {
@@ -123,12 +123,20 @@ onMounted(fetchUsers)
   <div>
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
       <div>
-        <h1 class="text-xl font-bold text-gray-800">Manajemen Pengguna</h1>
-        <p class="text-sm text-gray-400">{{ users.length }} pengguna terdaftar</p>
+        <h1 class="text-xl font-bold text-gray-800">Kelola Akun Kasir</h1>
+        <p class="text-sm text-gray-400">Tambah dan kelola hak akses akun kasir toko Anda. ({{ users.length }} terdaftar)</p>
       </div>
       <button class="flex items-center justify-center gap-2 px-4 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-semibold shadow-sm" @click="openAdd">
         <Plus class="w-4 h-4" />Tambah Kasir
       </button>
+    </div>
+
+    <div class="mb-5 bg-blue-50 border border-blue-100 rounded-xl p-4 flex items-start gap-3 text-sm text-blue-800">
+      <div class="mt-0.5"><Eye class="w-4 h-4 text-blue-500" /></div>
+      <div>
+        <p class="font-semibold mb-0.5">Informasi Sistem</p>
+        <p>Fitur ini hanya digunakan untuk menambah atau mengelola akun Kasir. Akun Admin dikelola secara khusus oleh sistem.</p>
+      </div>
     </div>
 
     <div class="bg-white rounded-xl shadow-card overflow-hidden">
@@ -158,10 +166,7 @@ onMounted(fetchUsers)
                   <td class="px-4 py-3"><input v-model="inlineEditForm.name" class="w-full px-2 py-1 rounded border text-sm" /></td>
                   <td class="px-3 py-3"><input v-model="inlineEditForm.username" class="w-full px-2 py-1 rounded border text-sm" /></td>
                   <td class="px-3 py-3">
-                    <select v-model="inlineEditForm.role" class="w-full px-2 py-1 rounded border text-sm">
-                      <option>ADMIN</option>
-                      <option>KASIR</option>
-                    </select>
+                    <span class="text-[10.5px] font-bold px-2 py-0.5 rounded-full bg-green-50 text-green-700">KASIR</span>
                   </td>
                   <td class="px-3 py-3"><input v-model="inlineEditForm.password" placeholder="Kosongkan jika tdk diubah" class="w-full px-2 py-1 rounded border text-sm" type="password" /></td>
                   <td class="px-3 py-3"></td>
@@ -214,7 +219,7 @@ onMounted(fetchUsers)
     </div>
 
     <!-- Add/Edit Modal -->
-    <BaseModal :show="showModal" :title="'Tambah Kasir'" size="sm" @close="showModal = false">
+    <BaseModal :show="showModal" :title="'Tambah Kasir Baru'" size="sm" @close="showModal = false">
       <form class="p-5 space-y-3" @submit.prevent="save">
         <div>
           <label class="text-xs font-semibold text-gray-600 block mb-1">Nama Lengkap *</label>
@@ -233,7 +238,7 @@ onMounted(fetchUsers)
           <button type="button" class="flex-1 py-2.5 rounded-xl border border-gray-200 text-gray-600 font-semibold text-sm hover:bg-gray-50" @click="showModal = false">Batal</button>
           <button type="submit" :disabled="saving" class="flex-1 py-2.5 rounded-xl bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-semibold text-sm flex items-center justify-center gap-2">
             <svg v-if="saving" class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-            {{ saving ? 'Menyimpan...' : 'Simpan' }}
+            {{ saving ? 'Menyimpan...' : '+ Simpan Akun Kasir' }}
           </button>
         </div>
       </form>
