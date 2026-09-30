@@ -17,7 +17,7 @@ const search = ref('')
 const filterStatus = ref('')
 const showAdjustModal = ref(false)
 const adjustingProduct = ref(null)
-const adjustForm = ref({ type: 'MASUK', direction: 'tambah', qty: 1, note: '' })
+const adjustForm = ref({ type: 'MASUK', direction: 'tambah', qty: 1, note: '', exp_date: '' })
 
 const filteredStock = () => {
   let list = stockStore.stockList
@@ -33,7 +33,7 @@ const filteredStock = () => {
 
 function openAdjust(product) {
   adjustingProduct.value = product
-  adjustForm.value = { type: 'MASUK', direction: 'tambah', qty: 1, note: '' }
+  adjustForm.value = { type: 'MASUK', direction: 'tambah', qty: 1, note: '', exp_date: '' }
   showAdjustModal.value = true
 }
 
@@ -49,6 +49,7 @@ async function saveAdjust() {
       qty: adjustForm.value.type === 'PENYESUAIAN' && adjustForm.value.direction === 'kurang'
         ? -adjustForm.value.qty
         : adjustForm.value.qty,
+      exp_date: adjustForm.value.exp_date || '',
       note: adjustForm.value.note,
     }
     await stockStore.adjustStock(payload)
@@ -209,7 +210,7 @@ function onTabChange(tab) {
     <BaseModal :show="showAdjustModal" title="Sesuaikan Stok" size="sm" @close="showAdjustModal = false">
       <div v-if="adjustingProduct" class="p-5">
         <p class="text-sm text-gray-500 mb-4">
-          <span class="font-semibold text-gray-800">{{ adjustingProduct.name }}</span> —
+          <span class="font-semibold text-gray-800">{{ adjustingProduct.name }}</span> ï¿½
           Stok saat ini: <span class="font-bold text-gray-800 num">{{ adjustingProduct.stock }} {{ adjustingProduct.unit }}</span>
         </p>
         <form class="space-y-3.5" @submit.prevent="saveAdjust">
@@ -232,6 +233,11 @@ function onTabChange(tab) {
           <div>
             <label class="text-xs font-semibold text-gray-600 block mb-1">Quantity *</label>
             <input v-model="adjustForm.qty" type="number" min="1" class="w-full px-3 py-2 rounded-lg border border-gray-200 outline-none text-sm no-spin focus:border-green-500" />
+          </div>
+          <!-- Exp Date -->
+          <div v-if="adjustForm.type === 'MASUK'">
+            <label class="text-xs font-semibold text-gray-600 block mb-1">Tanggal Expired (Opsional)</label>
+            <input v-model="adjustForm.exp_date" type="date" class="w-full px-3 py-2 rounded-lg border border-gray-200 outline-none text-sm focus:border-green-500" />
           </div>
           <!-- Note -->
           <div>
