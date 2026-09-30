@@ -18,15 +18,15 @@ const saving = ref(false)
 const deleting = ref(false)
 const search = ref('')
 
+const defaultForm = () => ({ name: '', username: '', password: '', role: 'KASIR' })
+const form = ref(defaultForm())
+
 const showModal = ref(false)
 const inlineEditId = ref(null)
 const inlineEditForm = ref(defaultForm())
 const visiblePasswords = ref(new Set())
 function togglePassword(id) { const s = new Set(visiblePasswords.value); if (s.has(id)) s.delete(id); else s.add(id); visiblePasswords.value = s; }
 const deleteTarget = ref(null)
-
-const defaultForm = () => ({ name: '', username: '', password: '', role: 'KASIR' })
-const form = ref(defaultForm())
 
 const filtered = () =>
   search.value.trim()
