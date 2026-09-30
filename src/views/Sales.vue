@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { ref, onMounted, inject, nextTick } from 'vue'
 import { useSalesStore } from '@/stores/sales'
 import { rupiah } from '@/utils/currency'
@@ -63,7 +63,7 @@ onMounted(fetchSales)
     <div>
       <h1 class="text-2xl font-bold text-gray-800">Penjualan</h1>
       <p class="mt-1 text-sm text-gray-500">
-        Riwayat transaksi penjualan Business Center Sekolah
+        Riwayat transaksi penjualan Budhi Warman II
       </p>
     </div>
 

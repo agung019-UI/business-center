@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { useCartStore } from '@/stores/cart'
 import { rupiah } from '@/utils/currency'
 import { ShoppingCart } from 'lucide-vue-next'

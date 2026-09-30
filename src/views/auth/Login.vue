@@ -50,12 +50,12 @@ async function handleLogin() {
 
       <!-- Card Header — logo + nama + subtitle -->
       <div class="bg-green-600 px-7 py-6 flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
-          <Store class="w-6 h-6 text-white" />
+        <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center shrink-0 p-1 overflow-hidden">
+          <img src="@/assets/budhi-warman-logo.jpg" alt="Logo" class="w-full h-full object-contain" />
         </div>
         <div>
-          <h1 class="text-lg font-bold text-white leading-tight">Business Center Sekolah</h1>
-          <p class="text-green-100 text-xs mt-0.5">Sistem Kasir &amp; Manajemen Unit Usaha</p>
+          <h1 class="text-lg font-bold text-white leading-tight">Budhi Warman II</h1>
+          <p class="text-green-100 text-[11px] mt-0.5">Jakarta</p>
         </div>
       </div>
 

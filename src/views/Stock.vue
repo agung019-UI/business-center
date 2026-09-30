@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { ref, onMounted, inject } from 'vue'
 import { useStockStore } from '@/stores/stock'
 import { stockStatus } from '@/utils/permissions'
@@ -209,7 +209,7 @@ function onTabChange(tab) {
     <BaseModal :show="showAdjustModal" title="Sesuaikan Stok" size="sm" @close="showAdjustModal = false">
       <div v-if="adjustingProduct" class="p-5">
         <p class="text-sm text-gray-500 mb-4">
-          <span class="font-semibold text-gray-800">{{ adjustingProduct.name }}</span> —
+          <span class="font-semibold text-gray-800">{{ adjustingProduct.name }}</span> �
           Stok saat ini: <span class="font-bold text-gray-800 num">{{ adjustingProduct.stock }} {{ adjustingProduct.unit }}</span>
         </p>
         <form class="space-y-3.5" @submit.prevent="saveAdjust">
@@ -226,7 +226,7 @@ function onTabChange(tab) {
           <!-- Direction (PENYESUAIAN only) -->
           <div v-if="adjustForm.type === 'PENYESUAIAN'" class="flex gap-2">
             <button type="button" :class="['flex-1 py-1.5 rounded-lg text-xs font-semibold border transition', adjustForm.direction !== 'kurang' ? 'border-green-500 bg-green-50 text-green-700' : 'border-gray-200 text-gray-500']" @click="adjustForm.direction = 'tambah'">+ Tambah</button>
-            <button type="button" :class="['flex-1 py-1.5 rounded-lg text-xs font-semibold border transition', adjustForm.direction === 'kurang' ? 'border-red-400 bg-red-50 text-red-600' : 'border-gray-200 text-gray-500']" @click="adjustForm.direction = 'kurang'">− Kurang</button>
+            <button type="button" :class="['flex-1 py-1.5 rounded-lg text-xs font-semibold border transition', adjustForm.direction === 'kurang' ? 'border-red-400 bg-red-50 text-red-600' : 'border-gray-200 text-gray-500']" @click="adjustForm.direction = 'kurang'">- Kurang</button>
           </div>
           <!-- Qty -->
           <div>

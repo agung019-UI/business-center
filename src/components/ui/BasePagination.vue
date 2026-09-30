@@ -1,4 +1,4 @@
-ï»¿<script setup>
+<script setup>
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 
 const props = defineProps({
@@ -21,7 +21,7 @@ function goTo(page) {
     <p class="text-xs text-gray-400">
       Menampilkan
       <span class="font-semibold text-gray-600">{{ (currentPage - 1) * perPage + 1 }}</span>
-      â€“
+      –
       <span class="font-semibold text-gray-600">{{ Math.min(currentPage * perPage, total) }}</span>
       dari
       <span class="font-semibold text-gray-600">{{ total }}</span>
@@ -51,7 +51,7 @@ function goTo(page) {
         <span
           v-else-if="page === 2 || page === lastPage - 1"
           class="text-gray-400 text-xs px-1"
-        >â€¦</span>
+        >…</span>
       </template>
       <button
         :disabled="currentPage >= lastPage"

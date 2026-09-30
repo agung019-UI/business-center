@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { rupiah } from '@/utils/currency'
 import { fmtDate } from '@/utils/date'
 

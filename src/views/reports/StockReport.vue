@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { ref, onMounted, inject, computed } from 'vue'
 import { reportService } from '@/services/reportService'
 import { rupiah } from '@/utils/currency'

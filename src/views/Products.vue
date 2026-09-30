@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { ref, onMounted, inject } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useProductStore } from '@/stores/product'
@@ -262,7 +262,7 @@ onMounted(async () => {
                   <td class="px-4 py-3">
                     <div>
                       <p class="font-semibold text-gray-800">{{ p.name }}</p>
-                      <p class="text-[11px] text-gray-400 font-mono">{{ p.code }} • {{ p.barcode }}</p>
+                      <p class="text-[11px] text-gray-400 font-mono">{{ p.code }} � {{ p.barcode }}</p>
                     </div>
                   </td>
                   <td class="px-3 py-3 text-gray-500">{{ p.category?.name || p.category }}</td>

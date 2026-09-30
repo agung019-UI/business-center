@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 defineProps({
   size: { type: String, default: 'md' }, // sm | md | lg
   color: { type: String, default: 'teal' },

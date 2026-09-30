@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { PackageOpen } from 'lucide-vue-next'
 
 defineProps({

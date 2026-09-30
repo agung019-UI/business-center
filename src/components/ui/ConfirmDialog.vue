@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { Trash2 } from 'lucide-vue-next'
 import BaseModal from './BaseModal.vue'
 

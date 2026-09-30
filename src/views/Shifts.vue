@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { ref, onMounted, inject } from 'vue'
 import { useShiftStore } from '@/stores/shift'
 import { useAuthStore } from '@/stores/auth'
@@ -89,7 +89,7 @@ onMounted(() => {
           <Clock class="w-4 h-4" />Shift Sedang Aktif
         </p>
         <p class="text-xs text-green-600 mt-0.5">
-          Dibuka {{ fmtDate(shiftStore.currentShift.start || shiftStore.currentShift.created_at, true) }} •
+          Dibuka {{ fmtDate(shiftStore.currentShift.start || shiftStore.currentShift.created_at, true) }} �
           Modal awal {{ rupiah(shiftStore.currentShift.start_cash || shiftStore.currentShift.startCash) }}
         </p>
       </div>

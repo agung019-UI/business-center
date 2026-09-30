@@ -26,7 +26,7 @@ function printReceipt() {
           <!-- Receipt content (printed) -->
           <div id="receipt-print" class="p-6 font-mono text-sm text-gray-800">
             <div class="text-center mb-3">
-              <p class="font-bold text-base">{{ (settings?.bc_name || 'BUSINESS CENTER SEKOLAH').toUpperCase() }}</p>
+              <p class="font-bold text-base">{{ (settings?.bc_name || 'Budhi Warman II').toUpperCase() }}</p>
               <p>{{ settings?.school_name || '' }}</p>
               <p>{{ settings?.address || '' }}</p>
               <p>{{ settings?.phone || '' }}</p>

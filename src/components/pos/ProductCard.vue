@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { stockStatus } from '@/utils/permissions'
 import { rupiah } from '@/utils/currency'
 

@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { ref, onMounted, inject } from 'vue'
 import { settingsService } from '@/services/settingsService'
 import LoadingSpinner from '@/components/ui/LoadingSpinner.vue'
@@ -56,7 +56,7 @@ onMounted(fetchSettings)
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
       <div>
         <h1 class="text-xl font-bold text-gray-800">Pengaturan</h1>
-        <p class="text-sm text-gray-400">Konfigurasi Business Center Sekolah</p>
+        <p class="text-sm text-gray-400">Konfigurasi Budhi Warman II</p>
       </div>
     </div>
 
@@ -65,10 +65,10 @@ onMounted(fetchSettings)
     <form v-else class="space-y-5" @submit.prevent="save">
       <!-- Business Info -->
       <div class="bg-white rounded-xl shadow-card p-5">
-        <h3 class="font-bold text-gray-800 mb-4">Informasi Business Center</h3>
+        <h3 class="font-bold text-gray-800 mb-4">Informasi Budhi Warman II</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="text-xs font-semibold text-gray-600 block mb-1.5">Nama Business Center *</label>
+            <label class="text-xs font-semibold text-gray-600 block mb-1.5">Nama Usaha / Unit *</label>
             <input v-model="form.bc_name" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-200 outline-none text-sm focus:border-green-500 transition" />
           </div>
           <div>

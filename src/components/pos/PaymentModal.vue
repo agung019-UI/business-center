@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { computed } from 'vue'
 import { useCartStore } from '@/stores/cart'
 import { rupiah } from '@/utils/currency'

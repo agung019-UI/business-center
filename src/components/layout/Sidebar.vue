@@ -121,13 +121,13 @@ async function logout() {
         collapsed ? 'px-1 justify-between' : 'px-4 gap-3',
       ]"
     >
-      <div class="w-9 h-9 rounded-lg bg-green-600 flex items-center justify-center shrink-0">
-        <Store class="w-5 h-5 text-white" />
+      <div class="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center shrink-0 overflow-hidden">
+        <img src="@/assets/budhi-warman-logo.jpg" alt="Logo" class="w-full h-full object-contain" />
       </div>
 
       <div v-show="!collapsed" class="flex-1 min-w-0 leading-tight overflow-hidden">
-        <p class="text-sm font-bold text-gray-900 truncate">Business Center</p>
-        <p class="text-[11px] text-gray-500 truncate">Sekolah</p>
+        <p class="text-sm font-bold text-green-700 truncate">Budhi Warman II</p>
+        <p class="text-[11px] font-medium text-gray-500 truncate">Jakarta</p>
       </div>
 
       <button

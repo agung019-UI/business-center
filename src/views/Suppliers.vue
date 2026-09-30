@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { ref, onMounted, inject } from 'vue'
 import { supplierService } from '@/services/supplierService'
 import BaseModal from '@/components/ui/BaseModal.vue'

@@ -28,7 +28,7 @@ const s = dashboardStore
     <div class="flex items-center justify-between mb-5">
       <div>
         <h1 class="text-xl font-bold text-gray-800">Dashboard</h1>
-        <p class="text-sm text-gray-400">Ringkasan aktivitas Business Center hari ini</p>
+        <p class="text-sm text-gray-400">Ringkasan aktivitas Budhi Warman II hari ini</p>
       </div>
       <RouterLink
         v-if="!authStore.isAdmin"

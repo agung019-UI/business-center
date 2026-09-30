@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { ref, computed, onMounted, inject } from 'vue'
 import { useCashStore } from '@/stores/cash'
 import { rupiah } from '@/utils/currency'

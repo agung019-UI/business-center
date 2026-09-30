@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { ref } from 'vue'
 import { CheckCircle, AlertCircle, Info, X } from 'lucide-vue-next'
 
